@@ -1,7 +1,6 @@
 const express = require('express')
 var cors = require('cors');
 const { dbConection } = require('../database/config');
-
 class Server {
     constructor() {
         this.app = express();
@@ -9,7 +8,6 @@ class Server {
         this.middleware();
         //Conectar a la base de datos 
         this.conectarDB();
-
         this.UserPath = '/user';
         this.routes();
     }
@@ -17,8 +15,6 @@ class Server {
     //Para enviarle un end point que es codigo segmentado
     routes() {
         this.app.use(this.UserPath, require('../routes/user'));
-
-
     }
 
     async conectarDB() {

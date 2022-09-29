@@ -9,12 +9,14 @@ class Server {
         //Conectar a la base de datos 
         this.conectarDB();
         this.UserPath = '/user';
+        this.AuthPath = '/auth'
         this.routes();
     }
 
     //Para enviarle un end point que es codigo segmentado
     routes() {
         this.app.use(this.UserPath, require('../routes/user'));
+        this.app.use(this.AuthPath, require('../routes/auth'));
     }
 
     async conectarDB() {

@@ -7,6 +7,7 @@ const { validate } = require('../models/UserModel');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
 const { GetUser, PutUser, PostUser, DeleteUser } = require('../controller/user');
+const { esAdminRole, tienerol } = require('../middlewares/validar-roles');
 
 //Midleware se ejectura antes de pasar la ruta para validar cadenas 
 
@@ -35,6 +36,8 @@ router.post('/:id', [
 
 router.delete('/:id', [
     validarJWT,
+    // esAdminRole,
+    tienerol('ADMIN_ROL', 'VENTAS_ROL'),
     //  check('id', 'El id no es valido mongo').isMongoId(),
     //  check('id no existe').custom(isIdtrue),
     validarcampos

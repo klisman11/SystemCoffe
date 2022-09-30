@@ -1,10 +1,13 @@
 const { Router } = require('express');
-const { GetUser, PutUser, PostUser, DeleteUser } = require('../controller/user');
-const { check } = require('express-validator');
 const { esRolevalido, esEmailvalido, isIdtrue } = require('../helpers/DBValidator');
+const { check } = require('express-validator');
 
 const { validarcampos } = require('../middlewares/ValidarCampos');
 const { validate } = require('../models/UserModel');
+const { validarJWT } = require('../middlewares/validar-jwt');
+
+const { GetUser, PutUser, PostUser, DeleteUser } = require('../controller/user');
+
 //Midleware se ejectura antes de pasar la ruta para validar cadenas 
 
 const router = Router();
@@ -31,8 +34,9 @@ router.post('/:id', [
 ], PostUser);
 
 router.delete('/:id', [
-    check('id', 'El id no es valido').isMongoId(),
-    check('id_no existe').custom(isIdtrue),
+    validarJWT,
+    //  check('id', 'El id no es valido mongo').isMongoId(),
+    //  check('id no existe').custom(isIdtrue),
     validarcampos
 ], DeleteUser);
 

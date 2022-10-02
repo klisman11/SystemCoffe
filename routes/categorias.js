@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 const { validarJWT } = require('../middlewares/validar-jwt');
-const { CrearCategoria, GetCategorias } = require("../controller/categorias")
+const { CrearCategoria, GetCategorias, ObetenerCategoria } = require("../controller/categorias")
 
 const { response, request } = ('express');
 const { validarcampos } = require('../middlewares/ValidarCampos');
@@ -14,10 +14,10 @@ router.get('/', GetCategorias);
 
 
 //Obtener todas las  categorias publlio por id 
-router.get('/:id', (req, res) => {
-    res.json('Obetener por id ')
-
-});
+router.get('/:id', [
+    check('id', 'No es un id de Mongo válido').isMongoId(),
+    validarcampos
+], ObetenerCategoria);
 
 //Crear categoria privado- cualquier personas que tenga token
 router.post('/', [

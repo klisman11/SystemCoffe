@@ -8,21 +8,17 @@ class Server {
         this.middleware();
         //Conectar a la base de datos 
         this.conectarDB();
-
-        this.paths = {
-            Auth: '/auth',
-            Categorias: '/categorias',
-            User: '/user'
-        }
-
+        this.UserPath = '/user';
+        this.AuthPath = '/auth';
+        this.CategoriasPhat = '/categorias';
         this.routes();
     }
 
     //Para enviarle un end point que es codigo segmentado
     routes() {
-        this.app.use(this.paths.Auth, require('../routes/user'));
-        this.app.use(this.paths.User, require('../routes/auth'));
-        this.app.use(this.paths.Categorias, require('../routes/categorias'));
+        this.app.use(this.UserPath, require('../routes/user'));
+        this.app.use(this.AuthPath, require('../routes/auth'));
+        this.app.use(this.CategoriasPhat, require('../routes/categorias'))
     }
 
     async conectarDB() {

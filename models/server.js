@@ -11,6 +11,7 @@ class Server {
         this.UserPath = '/user';
         this.AuthPath = '/auth';
         this.CategoriasPhat = '/categorias';
+        this.ProductosPhat = '/productos';
         this.routes();
     }
 
@@ -18,7 +19,8 @@ class Server {
     routes() {
         this.app.use(this.UserPath, require('../routes/user'));
         this.app.use(this.AuthPath, require('../routes/auth'));
-        this.app.use(this.CategoriasPhat, require('../routes/categorias'))
+        this.app.use(this.CategoriasPhat, require('../routes/categorias'));
+        this.app.use(this.ProductosPhat, require('../routes/productos'));
     }
 
     async conectarDB() {

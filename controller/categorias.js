@@ -1,6 +1,6 @@
 const { request, response } = ('express');
 const categoria = require('../models/categorias');
-
+const User = require('../models/UserModel');
 //Obtener categoria paginado totoal
 const GetCategorias = async(req = request, res = response) => {
     const { limite = 5, desde = 0 } = req.query;
@@ -42,6 +42,7 @@ const CrearCategoria = async(req, res = response) => {
     const data = {
         nombre,
         usuario: req.usuario._id
+
     }
     const categorias = new categoria(data);
 
@@ -49,9 +50,33 @@ const CrearCategoria = async(req, res = response) => {
     res.status(201).json(categorias);
 }
 
+const ActualizarCategoria = async(req, res = response) => {
+    const id = req.params;
+    const { estado, usuario, ...data } = req.body;
+    data.nombre = data.nombre.toUpperCase();
+
+    console.log(valor);
+
+    const categoriabusqueda = await categoria.findByIdAndUpdate(id, data, { new: true });
+    response.json(categoriabusqueda);
+
+}
+const DeleteCategoria = async(req = request, res = response) => {
+    const { id } = req.params;
+    const categorias = await categoria.findByIdAndUpdate(id, { estado: false });
+
+    res.json({
+        categorias
+
+
+    });
+};
+
 
 module.exports = {
     CrearCategoria,
     GetCategorias,
-    ObetenerCategoria
+    ObetenerCategoria,
+    ActualizarCategoria,
+    DeleteCategoria
 }

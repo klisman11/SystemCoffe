@@ -38,12 +38,11 @@ router.delete('/:id', [
     validarJWT,
     // esAdminRole,
     tienerol('ADMIN_ROL', 'VENTAS_ROL'),
-    //  check('id', 'El id no es valido mongo').isMongoId(),
-    //  check('id no existe').custom(isIdtrue),
+    check('id', 'El id no es valido mongo').isMongoId(),
+    check('id no existe').custom(isIdtrue),
     validarcampos
-], DeleteUser);
 
-
+], DeleteUser)
 
 
 module.exports = router;

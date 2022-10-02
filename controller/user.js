@@ -65,14 +65,15 @@ const PostUser = async(req, res) => {
 };
 
 const DeleteUser = async(req = request, res = response) => {
-    const { id } = req.body;
+    const { id } = req.params;
 
 
-    const usuarios = await UserModel.findByIdAndUpdate(id, { estado: false });
+    const usuarios = await Usuario.findByIdAndUpdate(id, { estado: false });
     const usuarioAutenticado = req.usuario;
 
     res.json({
         id,
+
         usuarios,
         usuarioAutenticado
 
